@@ -3,9 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
-    serverActions: {
-      allowedOrigins: ["*"],
-      bodySizeLimit: '2mb'
+    serverActions: true,
+    turbo: {
+      rules: {
+        // Specify Turbopack rules here
+      }
     }
   },
   serverExternalPackages: ['@prisma/client', '@ai-sdk/openai'],
