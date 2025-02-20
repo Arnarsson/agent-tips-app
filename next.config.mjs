@@ -6,9 +6,9 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ["*"],
       bodySizeLimit: '2mb'
-    },
-    serverComponentsExternalPackages: ['@prisma/client', '@ai-sdk/openai']
+    }
   },
+  serverExternalPackages: ['@prisma/client', '@ai-sdk/openai'],
   typescript: {
     ignoreBuildErrors: true
   },
