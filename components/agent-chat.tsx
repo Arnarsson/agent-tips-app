@@ -207,37 +207,53 @@ export default function Chat({ prompt }: { prompt: PromptStructure | null }) {
   }, [setAIState, setMessages])
 
   return (
-    <div
+    <div 
       className="relative flex flex-col w-full h-[calc(100vh-64px)] overflow-hidden"
       role="main"
+      aria-label="Chat Interface"
     >
-      {/* Scrollable area for chat messages */}
-      <ScrollArea className="flex-grow overflow-y-auto">
-        <div className="p-4 pb-24" role="log" aria-live="polite">
-          {messages.length ? <ChatList messages={messages} /> : <EmptyScreen />}
-          <div className="w-full h-px" />
+      <ScrollArea 
+        className="flex-grow overflow-y-auto"
+        aria-label="Chat Messages"
+      >
+        <div 
+          className="p-4 pb-24" 
+          role="log" 
+          aria-live="polite"
+          aria-atomic="false"
+        >
+          {messages.length ? (
+            <ChatList 
+              messages={messages} 
+              aria-label="Message History"
+            />
+          ) : (
+            <EmptyScreen aria-label="Welcome Screen" />
+          )}
+          <div className="w-full h-px" aria-hidden="true" />
         </div>
       </ScrollArea>
 
-      <Separator className="mt-auto" />
+      <Separator className="mt-auto" aria-hidden="true" />
 
-      {/* Chat input area */}
-      <div className="sticky bottom-0 left-0 right-0 w-full bg-background py-2 ">
-        <div className="mx-auto    px-1 sm:px-4 ">
+      <div 
+        className="sticky bottom-0 left-0 right-0 w-full bg-background py-2"
+        role="form"
+        aria-label="Message Input"
+      >
+        <div className="mx-auto px-1 sm:px-4">
           <TextureCard>
             <div className="flex flex-col space-y-4">
-              {/* Variable header for displaying and editing chat variables */}
               <AgentChatVariableHeader
                 messages={messages}
                 variables={variables}
                 inputValue={chatState.inputValue}
                 variableValues={chatState.variableValues}
                 handleVariableChange={handleVariableChange}
+                aria-label="Variable Controls"
               />
 
               <TextureCardContent className="px-4">
-                {/* Actions menu for selecting chat actions */}
-
                 <AgentChatActionsMenu
                   actionsSearch={chatState.actionsSearch}
                   setActionsSearch={(value) =>
@@ -274,10 +290,13 @@ export default function Chat({ prompt }: { prompt: PromptStructure | null }) {
                   }
                   setSelectedActions={setSelectedActions}
                   searchRef={searchRef}
+                  aria-label="Available Actions"
                 />
 
-                {/* Display for selected actions */}
-                <div className="flex flex-row gap-2 justify-between items-start pb-1">
+                <div 
+                  className="flex flex-row gap-2 justify-between items-start pb-1"
+                  aria-label="Selected Actions"
+                >
                   <SelectedActionsDisplay
                     selectedActions={chatState.selectedActions}
                     setSelectedActions={setSelectedActions}
@@ -287,7 +306,6 @@ export default function Chat({ prompt }: { prompt: PromptStructure | null }) {
               </TextureCardContent>
             </div>
             <TextureCardFooter className="w-full">
-              {/* User message input form */}
               <AgentChatUserMessageForm
                 formRef={formRef}
                 inputValue={chatState.inputValue}
@@ -307,6 +325,7 @@ export default function Chat({ prompt }: { prompt: PromptStructure | null }) {
                 setShowActionsMenu={(value) =>
                   setChatState((prev) => ({ ...prev, showActionsMenu: value }))
                 }
+                aria-label="Message Input Form"
               />
             </TextureCardFooter>
           </TextureCard>
