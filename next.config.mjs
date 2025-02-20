@@ -55,6 +55,14 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV,
     NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL,
+  },
+  webpack: (config) => {
+    // SVG Configuration
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
   }
 };
 
