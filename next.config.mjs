@@ -3,35 +3,41 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   experimental: {
+    // Only keep essential experimental features
     serverActions: {
       allowedOrigins: ['localhost:3000', 'www.stashprompt.com'],
       bodySizeLimit: '2mb'
     },
+    // Optimize Turbopack for performance
     turbo: {
-      loaders: {
-        '.svg': ['@svgr/webpack']
+      // Enable Turbopack optimizations
+      enabled: true,
+      // Resolve modules from node_modules
+      resolveAlias: {
+        // Add common aliases
+        '@/*': './*',
       }
     }
   },
   typescript: {
-    // Re-enable TypeScript checks
-    ignoreBuildErrors: false,
+    // Speed up development by checking types on build only
+    ignoreBuildErrors: process.env.NODE_ENV === 'development',
     tsconfigPath: './tsconfig.json'
   },
   eslint: {
-    // Re-enable ESLint
-    ignoreDuringBuilds: false,
+    // Speed up development by checking lint on build only
+    ignoreDuringBuilds: process.env.NODE_ENV === 'development',
     dirs: ['app', 'components', 'lib']
   },
   compiler: {
-    // Keep console logs in development
+    // Optimize compilation
     removeConsole: process.env.NODE_ENV === "production" ? {
       exclude: ['error', 'warn']
     } : false
   },
+  // Optimize image handling
   images: {
-    // Enable image optimization
-    unoptimized: false,
+    unoptimized: process.env.NODE_ENV === 'development',
     domains: ['www.stashprompt.com'],
     remotePatterns: [
       {
@@ -39,6 +45,12 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+  },
+  // Cache optimization
+  onDemandEntries: {
+    // Increase cache duration in development
+    maxInactiveAge: 120 * 1000, // 2 minutes
+    pagesBufferLength: 5,
   },
   env: {
     NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV,
