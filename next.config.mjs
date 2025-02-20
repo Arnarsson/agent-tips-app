@@ -1,22 +1,40 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
   experimental: {
     serverActions: {
+      allowedOrigins: ['localhost:3000', 'www.stashprompt.com'],
       bodySizeLimit: '2mb'
+    },
+    turbo: {
+      rules: {
+        // Configure Turbopack rules
+        '*.svg': ['@svgr/webpack'],
+        '*.css': ['postcss-loader']
+      }
     }
   },
   typescript: {
-    ignoreBuildErrors: true
+    // Re-enable TypeScript checks
+    ignoreBuildErrors: false,
+    tsconfigPath: './tsconfig.json'
   },
   eslint: {
-    ignoreDuringBuilds: true
+    // Re-enable ESLint
+    ignoreDuringBuilds: false,
+    dirs: ['app', 'components', 'lib']
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production"
+    // Keep console logs in development
+    removeConsole: process.env.NODE_ENV === "production" ? {
+      exclude: ['error', 'warn']
+    } : false
   },
   images: {
-    unoptimized: true,
+    // Enable image optimization
+    unoptimized: false,
+    domains: ['www.stashprompt.com'],
     remotePatterns: [
       {
         protocol: 'https',
