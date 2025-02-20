@@ -2,7 +2,7 @@ import "./globals.css"
 
 import type { Metadata } from "next"
 import { Inter_Tight } from "next/font/google"
-import { AI } from "@/ai/actions"
+import { AI } from "./ai/actions"
 import { Provider } from "jotai"
 import { Toaster } from "sonner"
 

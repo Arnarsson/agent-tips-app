@@ -1,16 +1,5 @@
-import { DesktopLayout } from "./desktop-layout"
-import { MobileLayout } from "./mobile-layout"
+import RootWrapper from './root-wrapper'
 
-export default async function IndexPage() {
-  return (
-    <div className="h-screen ">
-      <div className="hidden md:block">
-        <DesktopLayout defaultCollapsed={undefined} navCollapsedSize={4} />
-      </div>
-
-      <div className="md:hidden">
-        <MobileLayout />
-      </div>
-    </div>
-  )
+export default function IndexPage() {
+  return <RootWrapper />
 }
