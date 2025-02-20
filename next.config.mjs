@@ -8,10 +8,19 @@ const nextConfig = {
       bodySizeLimit: '2mb'
     },
     turbo: {
+      loaders: {
+        '.svg': ['@svgr/webpack']
+      },
       rules: {
-        // Configure Turbopack rules
-        '*.svg': ['@svgr/webpack'],
-        '*.css': ['postcss-loader']
+        // Process CSS with PostCSS
+        '*.css': {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              plugins: ['tailwindcss', 'autoprefixer']
+            }
+          }
+        }
       }
     }
   },
