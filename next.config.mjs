@@ -10,17 +10,6 @@ const nextConfig = {
     turbo: {
       loaders: {
         '.svg': ['@svgr/webpack']
-      },
-      rules: {
-        // Process CSS with PostCSS
-        '*.css': {
-          loader: 'postcss-loader',
-          options: {
-            postcssOptions: {
-              plugins: ['tailwindcss', 'autoprefixer']
-            }
-          }
-        }
       }
     }
   },
