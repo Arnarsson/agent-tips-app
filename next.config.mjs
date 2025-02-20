@@ -3,11 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
-    serverActions: true,
-    turbo: {
-      rules: {
-        // Specify Turbopack rules here
-      }
+    serverActions: {
+      allowedOrigins: ["*"],
+      bodySizeLimit: '2mb'
     }
   },
   serverExternalPackages: ['@prisma/client', '@ai-sdk/openai'],
@@ -26,8 +24,13 @@ const nextConfig = {
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   distDir: '.next',
   images: {
-    domains: ['*'],
-    unoptimized: true
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
